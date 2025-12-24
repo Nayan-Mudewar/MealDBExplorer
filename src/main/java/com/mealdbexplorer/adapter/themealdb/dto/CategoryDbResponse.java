@@ -1,7 +1,6 @@
-package com.mealdbexplorer.adaptor.themealdb.dto;
+package com.mealdbexplorer.adapter.themealdb.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.mealdbexplorer.adapter.themealdb.dto.CategoryDbDto;
 import lombok.Data;
 
 import java.util.List;

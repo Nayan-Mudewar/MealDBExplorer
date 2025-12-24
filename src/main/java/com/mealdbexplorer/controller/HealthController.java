@@ -1,6 +1,7 @@
 package com.mealdbexplorer.controller;
 
-import com.mealdbexplorer.TheMealDbClient;
+import com.mealdbexplorer.adapter.themealdb.TheMealDbClient;
+import com.mealdbexplorer.adaptor.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
