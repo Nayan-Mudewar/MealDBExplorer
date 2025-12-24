@@ -1,6 +1,6 @@
 package com.mealdbexplorer.service.matcher;
 
-import com.mealdbexplorer.domain.logic.IngredientMatcher;
+import com.mealdbexplorer.domain.model.logic.IngredientMatcher;
 import com.mealdbexplorer.domain.model.MatchResult;
 import com.mealdbexplorer.domain.model.Meal;
 import com.mealdbexplorer.service.meal.MealService;

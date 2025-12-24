@@ -1,4 +1,4 @@
-package com.mealdbexplorer.domain.logic;
+package com.mealdbexplorer.domain.model.logic;
 
 import com.mealdbexplorer.domain.model.Ingredient;
 import com.mealdbexplorer.domain.model.MatchResult;
