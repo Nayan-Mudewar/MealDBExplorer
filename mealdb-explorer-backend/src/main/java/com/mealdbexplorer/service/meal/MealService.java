@@ -105,6 +105,40 @@ public class MealService {
         return detailedMeals;
     }
 
+    @Cacheable(value = "allMeals")
+    public List<Meal> getAllMeals() {
+        log.info("Fetching all meals");
+
+        try {
+            // Try to get all meals using empty search
+            MealDbResponse response = mealDbClient.getAllMeals();
+            if (response != null && response.getMeals() != null) {
+                return mealMapper.toDomainList(response.getMeals());
+            }
+        } catch (Exception e) {
+            log.warn("Failed to fetch all meals using empty search, falling back to category-based approach", e);
+        }
+
+        // Fallback: Get meals from all categories
+        log.info("Using fallback: fetching meals from all categories");
+        List<Meal> allMeals = new ArrayList<>();
+        try {
+            List<Category> categories = getAllCategories();
+            for (Category category : categories) {
+                try {
+                    List<Meal> categoryMeals = getMealsByCategory(category.getName());
+                    allMeals.addAll(categoryMeals);
+                } catch (Exception e) {
+                    log.warn("Failed to fetch meals from category: {}", category.getName(), e);
+                }
+            }
+        } catch (Exception e) {
+            log.error("Failed to fetch meals from categories", e);
+        }
+
+        return allMeals;
+    }
+
     @Cacheable(value = "popularMeals")
     public List<Meal> getPopularMeals() {
         log.info("Fetching popular meals from popular categories");

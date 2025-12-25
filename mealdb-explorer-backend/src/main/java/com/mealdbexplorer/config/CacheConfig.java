@@ -20,7 +20,8 @@ public class CacheConfig {
                 "meal",
                 "categories",
                 "mealsByCategory",
-                "allMeals"
+                "allMeals",
+                "popularMeals"
         );
 
         cacheManager.setCaffeine(Caffeine.newBuilder()
