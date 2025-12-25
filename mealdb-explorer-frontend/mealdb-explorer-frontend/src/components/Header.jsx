@@ -36,6 +36,26 @@ const Header = () => {
             <SearchBar onSearch={handleSearch} />
           </div>
 
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-6">
+            <Link
+              to="/"
+              className={`text-neutral-700 hover:text-primary-600 transition-colors ${
+                location.pathname === '/' ? 'text-primary-600 font-semibold' : ''
+              }`}
+            >
+              Home
+            </Link>
+            <Link
+              to="/ingredient-matcher"
+              className={`text-neutral-700 hover:text-primary-600 transition-colors ${
+                location.pathname === '/ingredient-matcher' ? 'text-primary-600 font-semibold' : ''
+              }`}
+            >
+              What Can I Cook?
+            </Link>
+          </nav>
+
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

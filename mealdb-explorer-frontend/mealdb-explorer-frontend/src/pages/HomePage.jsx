@@ -19,14 +19,14 @@ const HomePage = () => {
     cacheTime: 10 * 60 * 1000, // 10 minutes
   });
 
-  // Fetch popular meals (search with empty string gets all)
+  // Fetch popular meals
   const {
     data: meals,
     isLoading: mealsLoading,
     error: mealsError,
   } = useQuery(
     'popularMeals',
-    () => mealService.searchMeals(''), // Empty search returns popular meals
+    () => mealService.getPopularMeals(),
     {
       staleTime: 5 * 60 * 1000,
       cacheTime: 10 * 60 * 1000,

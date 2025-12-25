@@ -70,6 +70,17 @@ export const mealService = {
     }
   },
 
+  // Get popular meals (all meals)
+  getPopularMeals: async () => {
+    try {
+      const response = await apiClient.get('/meals/popular');
+      return response.data || [];
+    } catch (error) {
+      console.error('Error fetching popular meals:', error);
+      throw error;
+    }
+  },
+
   // What can I cook
   whatCanICook: async (ingredients, minMatchPercentage = 30) => {
     if (!ingredients || !Array.isArray(ingredients) || ingredients.length === 0) {
