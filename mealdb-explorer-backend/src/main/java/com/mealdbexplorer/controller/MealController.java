@@ -75,6 +75,16 @@ public class MealController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/popular")
+    public ResponseEntity<List<MealResponse>> getPopularMeals() {
+        log.info("GET /api/meals/popular");
+
+        List<Meal> meals = mealService.getPopularMeals();
+        List<MealResponse> response = responseMapper.toMealResponseList(meals);
+
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping("/what-can-i-cook")
     public ResponseEntity<List<MatchResponse>> whatCanICook(@Valid @RequestBody MatchRequest request) {
         log.info("POST /api/meals/what-can-i-cook - {} ingredients", request.getIngredients().size());

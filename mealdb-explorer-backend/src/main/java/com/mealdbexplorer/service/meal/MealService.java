@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -103,16 +105,39 @@ public class MealService {
         return detailedMeals;
     }
 
-    @Cacheable(value = "allMeals")
-    public List<Meal> getAllMeals() {
-        log.info("Fetching all meals");
+    @Cacheable(value = "popularMeals")
+    public List<Meal> getPopularMeals() {
+        log.info("Fetching popular meals from popular categories");
 
-        MealDbResponse response = mealDbClient.getAllMeals();
-
-        if (response == null || response.getMeals() == null) {
-            return List.of();
+        // Popular categories to fetch meals from
+        List<String> popularCategories = List.of("Beef", "Chicken", "Dessert", "Vegetarian", "Pasta", "Seafood");
+        
+        List<Meal> allMeals = new ArrayList<>();
+        
+        for (String category : popularCategories) {
+            try {
+                MealDbResponse response = mealDbClient.getMealsByCategory(category);
+                if (response != null && response.getMeals() != null) {
+                    // Get basic meal info from filter endpoint (faster than full details)
+                    List<MealDbDto> basicMeals = response.getMeals().stream().limit(4).toList();
+                    // Fetch full details only for the limited set
+                    for (MealDbDto basicMeal : basicMeals) {
+                        try {
+                            Meal fullMeal = getMealById(basicMeal.getIdMeal());
+                            allMeals.add(fullMeal);
+                        } catch (Exception e) {
+                            log.warn("Failed to fetch full details for meal: {}", basicMeal.getIdMeal(), e);
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                log.warn("Failed to fetch meals from category: {}", category, e);
+                // Continue with other categories even if one fails
+            }
         }
-
-        return mealMapper.toDomainList(response.getMeals());
+        
+        // Shuffle and limit to 20 meals for variety
+        Collections.shuffle(allMeals);
+        return allMeals.stream().limit(20).toList();
     }
 }
