@@ -206,7 +206,7 @@ This project is licensed under the MIT License.
 **Your Name**
 - GitHub: [@Nayan-Mudewar](https://github.com/Nayan-Mudewar)
 - LinkedIn: [Nayan Mudewar](https://linkedin.com/in/yourprofile)
-- Email: your.email@example.com
+- Email: nayanmudewar2002@gmail.com
 
 ## 📞 Support
 
